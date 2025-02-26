@@ -1,4 +1,4 @@
-date base joaodomingos__db
+create date base joaodomingos__db
 
 
 create table usuario(
