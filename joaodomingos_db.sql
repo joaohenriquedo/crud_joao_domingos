@@ -9,3 +9,6 @@ create table usuario(
      senha text,
      primary key (idusuario)
 );
+
+#codigo para funcionar
+#pib install mysql-conector-python

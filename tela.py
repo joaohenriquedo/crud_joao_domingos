@@ -55,10 +55,10 @@ class CRUDApp:
             self.EMAIL_entry.delete(0,tk.END)
             self.USUARIO_entry.delete(0,tk.END)
             self.SENHA_entry.delete(0,tk.END)
-      else:
+            else:
         messagebox.showerror("Error","Todos os campos são obrigatorios")
         def read_users(sellf):
-        users=read_users()
+         users=read_users()
         self.text_area.delete(1,0,tk.END)
         for user in users:
            self.text_area.delete(tk.END,f"ID: {user[0]}, NOME {user[1]}, TELEFONE{user[2]}, EMAIL{user[3]}")
@@ -77,6 +77,23 @@ class CRUDApp:
 
     else:
         messagebox.showerror("Error","Todos os campos são obrigatorios")
+
+    def delete_user(self):
+       user_id = self.user_id_entry.get()
+       if user_id:
+          delete_user(user_id)
+
+          self.user_id_entry.delete(0,tk,END)
+          messagebox.showerror("sucess", 'usuario excluido com sucesso')
+        else:
+          messagebox.showerror("Error",'ID do usuario é obrigatorio')
+
+          if__name__=="__main__:"
+          root = tk.tK()
+          app = CRUDApp(root)
+          root.mainloop()
+          
+       
 
 
 
