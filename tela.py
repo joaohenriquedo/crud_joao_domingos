@@ -1,107 +1,114 @@
 import tkinter as tk
 from tkinter import messagebox
-from crud import create_user,read_users,update_user,delete_user
+from crud import create_user, read_users, update_user, delete_user
+
+# C = Create
+# R = Read
+# U = Update
+# D = Delete
 
 class CRUDApp:
-    def __init_(self,root):
+    def __init__(self, root):
         self.root = root
-        self.root.title("CRUD USUARIOS ")
-
-#Criação de Wigdets
+        self.root.title("CRUD USUÁRIOS")
+        
+        # Criação de Widgets
+        
         self.create_widgets()
     
     def create_widgets(self):
-        #leables
-        tk.Label(self.root,text = 'NOME').grid(row=0,column=0)
-        tk.Label(self.root,text = 'TELEFONE').grid(row=1,column=0)
-        tk.Label(self.root,text = 'EMAIL').grid(row=2,column=0)
-        tk.Label(self.root,text = 'USUARIO').grid(row=3,column=0)
-        tk.Label(self.root,text = 'SENHA').grid(row=4,column=0)
 
-        tk.Label(self.root,text = 'USER ID(for upaate/delete):').grid(row=5,column=0)
-        #criar as caixas para digitar os valores
-        self.NOME_entry = tk.Entry(self.root)
-        self.TELEFONE_entry = tk.Entry(self.root)
-        self.EMAIL_entry = tk.Entry(self.root)
-        self.USUARIO_entry = tk.Entry(self.root)
-        self.SENHA_entry = tk.Entry(self.root)
-        self.USER_ID_entry = tk.Entry(self.root)
+        #Label
+        tk.Label(self.root, text = "Nome: ").grid (row = 0, column = 0)
+        tk.Label(self.root, text = "Telefone: ").grid (row = 1, column = 0)
+        tk.Label(self.root, text = "E-mail: ").grid (row = 2, column = 0)
+        tk.Label(self.root, text = "Usuario: ").grid (row = 3, column = 0)
+        tk.Label(self.root, text = "Senha: ").grid (row = 4, column = 0)
 
-        self.NOME_entry.grid(row=0,column=1)
-        self.TELEFONE_entry.grid(row=1,column=0)
-        self.EMAIL_entry.grid(row=2,column=0)
-        self.USUARIO_entry.grid(row=3,column=0)
-        self.SENHA_entry.grid(row=4,column=0)
-        
-        self.USER_ID_entry.grid(row=5,column=0)
+        tk.Label(self.root, text = "UserID(for update/delete): ").grid (row = 5, column = 0)
 
-        #botoes
-        tk.Button(self.root, text='criar usu', command=self.create_user).grid(row=0, column=6, columspan=1)
-        tk.Button(self.root, text='listar usu', command=self.create_user).grid(row=1, column=6, columspan=1)
-        tk.Button(self.root, text='criar', command=self.create_user).grid(row=6, column=0, columspan=1)
-        tk.Button(self.root, text='criar', command=self.create_user).grid(row=6, column=1, columspan=1)
+        # CRIAR AS CAIXAS PARA DIGITAR OS VALORES E POSICIONAR
 
-        def create_user(self):
-            NOME = self.nome_entry.get()
-            TELEFONE = self.nome_entry.get()
-            EMAIL = self.nome_entry.get()
-            USUARIO = self.nome_entry.get()
-            SENHA = self.nome_entry.get()
+        self.nome_entry = tk.Entry(self.root)
+        self.telefone_entry = tk.Entry(self.root)
+        self.email_entry = tk.Entry(self.root)
+        self.usuario_entry = tk.Entry(self.root)
+        self.senha_entry = tk.Entry(self.root)
+        self.userID_entry = tk.Entry(self.root)
 
-            if NOME and TELEFONE and EMAIL and USUARIO and SENHA:
-             create_user(NOME,TELEFONE,EMAIL,USUARIO,SENHA)
-             self.NOME_entry.delete(0,tk.END)
-            self.TELEFONE_entry.delete(0,tk.END)
-            self.EMAIL_entry.delete(0,tk.END)
-            self.USUARIO_entry.delete(0,tk.END)
-            self.SENHA_entry.delete(0,tk.END)
-            else:
-        messagebox.showerror("Error","Todos os campos são obrigatorios")
-        def read_users(sellf):
-         users=read_users()
-        self.text_area.delete(1,0,tk.END)
+        self.nome_entry.grid(row = 0, column = 1)
+        self.telefone_entry.grid(row = 1, column = 1)
+        self.email_entry.grid(row = 2, column = 1)
+        self.usuario_entry.grid(row = 3, column = 1)
+        self.senha_entry.grid(row = 4, column = 1)
+
+        self.userID_entry.grid(row = 5, column = 1)
+
+
+        # BOTÕES DO CRUID
+
+        tk.Button(self.root, text = "Criar usuário", command = self.create_user).grid(row = 6, column = 0, columnspan = 1)
+        tk.Button(self.root, text = "Listar usuário", command = self.read_users).grid(row = 6, column = 1, columnspan = 1)
+        tk.Button(self.root, text = "Alterar usuário", command = self.update_user).grid(row = 7, column = 0, columnspan = 1)
+        tk.Button(self.root, text = "Excluir usuário", command = self.delete_user).grid(row = 7, column = 1, columnspan = 1)
+
+    def create_user(self):
+
+        nome = self.nome_entry.get()
+        telefone = self.telefone_entry.get()
+        email = self.email_entry.get()
+        usuario = self.usuario_entry.get()
+        senha = self.senha_entry.get()
+
+        if nome and telefone and email and usuario and senha:
+            create_user(nome, telefone, email, usuario, senha)
+            self.nome_entry.delete(0, tk.END)
+            self.telefone_entry.delete(0, tk.END)
+            self.email_entry.delete(0, tk.END)
+            self.usuario_entry.delete(0, tk.END)
+            self.senha_entry.delete(0, tk.END)
+            messagebox.showerror("Success", "Usuario criado com sucesso!")
+        else:
+            messagebox.showerror("Error","Todos os campos são obrigatórios")
+
+    def read_users(self):
+
+        users = read_users()
+        self.text_area.delete(1.0, tk.END)
         for user in users:
-           self.text_area.delete(tk.END,f"ID: {user[0]}, NOME {user[1]}, TELEFONE{user[2]}, EMAIL{user[3]}")
+            self.text_area.insert(tk.END, f"ID: {user[0]}, Nome: {user[1]}, Telefone: {user[2]}, E-mail: {user[3]}\n")
 
-           def update_user(self):
-              user_id = self.user_id_entry.get()
+    def update_user(self):
 
-    if USER_ID and NOME and TELEFONE and EMAIL and USUARIO and SENHA:
-        update_user(USER_ID,NOME,TELEFONE,EMAIL,USUARIO,SENHA)
-        create_user(NOME,TELEFONE,EMAIL,USUARIO,SENHA)
-        self.NOME_entry.delete(0,tk.END)
-        self.TELEFONE_entry.delete(0,tk.END)
-        self.EMAIL_entry.delete(0,tk.END)
-        self.USUARIO_entry.delete(0,tk.END)
-        self.SENHA_entry.delete(0,tk.END)
+        userID = self.UserID_entry.get()
+        nome = self.nome_entry.get()
+        telefone = self.telefone_entry.get()
+        email = self.email_entry.get()
+        usuario = self.usuario_entry.get()
+        senha = self.senha_entry.get()
 
-    else:
-        messagebox.showerror("Error","Todos os campos são obrigatorios")
+        if userID and nome and telefone and email and usuario and senha:
+            update_user(userID, nome, telefone, email, usuario, senha)
+            self.nome_entry.delete(0,tk.END)
+            self.telefone_entry.delete(0,tk.END)
+            self.email_entry.delete(0,tk.END)
+            self.usuario_entry.delete(0,tk.END)
+            self.senha_entry.delete(0,tk.END)
+            messagebox.showerror("Success", "Usuario alterado com sucesso!")
+        else:
+            messagebox.showerror("Error","Todos os campos são obrigatórios")
 
     def delete_user(self):
-       user_id = self.user_id_entry.get()
-       if user_id:
-          delete_user(user_id)
 
-          self.user_id_entry.delete(0,tk,END)
-          messagebox.showerror("sucess", 'usuario excluido com sucesso')
+        UserID = self.userID_entry.get()
+        if UserID:
+            delete_user(UserID)
+            self.userID_entry.delete(0, tk.END)
+            messagebox.showerror("Success","Usuário excluido com sucesso!")
         else:
-          messagebox.showerror("Error",'ID do usuario é obrigatorio')
+            messagebox.showerror("Error","O ID do Usuário é obrigatório!")
 
-          if__name__=="__main__:"
-          root = tk.tK()
-          app = CRUDApp(root)
-          root.mainloop()
-          
-       
-
-
-
-
-
-        
-
-
-
-
-
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = CRUDApp(root)
+    root.mainloop()
